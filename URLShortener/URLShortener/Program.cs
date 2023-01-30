@@ -8,6 +8,7 @@ namespace URLShortener
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddTransient<IShortener, Shortener>();
 
             var app = builder.Build();
 

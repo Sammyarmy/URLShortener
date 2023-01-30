@@ -9,3 +9,7 @@
     <input type="text" id="LongUrl" name="LongUrl" value="@Model.LongUrl" />
     <input type="submit" value="Shorten" />
 </form>
+@if (Model.ShortUrl != null)
+{
+    <p>Short URL: @Model.ShortUrl</p>
+}

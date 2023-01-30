@@ -10,6 +10,7 @@ namespace URLShortener.Pages
 
         [BindProperty]
         public string? LongUrl { get; set; }
+        public string? ShortUrl { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IShortener shortener)
         {
@@ -23,8 +24,8 @@ namespace URLShortener.Pages
 
         public void OnPost()
         {
-            var shortUrl = _shortener.GenerateShortUrl(LongUrl);
-            _shortener.StoreUrl(LongUrl, shortUrl);
+            ShortUrl = _shortener.GenerateShortUrl(LongUrl);
+            _shortener.StoreUrl(LongUrl, ShortUrl);
         }
     }
 }

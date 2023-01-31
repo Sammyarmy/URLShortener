@@ -10,7 +10,7 @@
 
         public void StoreUrl(string shortUrl, string longUrl)
         {
-            urlDict.Add(shortUrl, longUrl);
+            urlDict.Add(shortUrl, longUrl); //This would ideally store into a persistent data store, instead I'm creating this class as a singleton to store the dict over the lifetime of the application
         }
 
         public string GenerateShortUrl(string longUrl)

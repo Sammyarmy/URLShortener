@@ -15,15 +15,15 @@
 
         public string GenerateShortUrl(string longUrl)
         {
-            return new string($"sho.rt/{Guid.NewGuid().ToString("N").Substring(0, 6)}");
+            return new string($"{Guid.NewGuid().ToString("N").Substring(0, 6)}");
         }
 
-        public string GetUrl(string shortUrl)
+        public string GetLongUrl(string shortUrl)
         {
-           if(urlDict.TryGetValue(shortUrl, out string longUrl))
-           return longUrl;
+            if (urlDict.TryGetValue(shortUrl, out string longUrl))
+                return longUrl;
 
-           throw new Exception();
+            return "Not Found";
         }
     }
 }

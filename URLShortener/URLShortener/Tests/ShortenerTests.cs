@@ -21,7 +21,7 @@ public class ShortenerTests
 
         // Act
         shortener.StoreUrl(shortUrl, longUrl);
-        var result = shortener.GetUrl(shortUrl);
+        var result = shortener.GetLongUrl(shortUrl);
 
         // Assert
         Assert.Equal(longUrl, result);
@@ -37,7 +37,7 @@ public class ShortenerTests
         shortener.StoreUrl(shortUrl, longUrl);
 
         // Act
-        var result = shortener.GetUrl(shortUrl);
+        var result = shortener.GetLongUrl(shortUrl);
 
         // Assert
         Assert.Equal(longUrl, result);
@@ -50,10 +50,10 @@ public class ShortenerTests
         var shortener = new Shortener();
 
         // Act
-        var exception = Record.Exception(() => shortener.GetUrl("sho.rt/abcdef"));
+        var result = shortener.GetLongUrl("abcdef");
 
         // Assert
-        Assert.IsType<Exception>(exception);
+        Assert.Equal("Not Found", result);
     }
 
     [Fact]
@@ -68,8 +68,7 @@ public class ShortenerTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.StartsWith("sho.rt/", result);
-        Assert.Equal(13, result.Length);
+        Assert.Equal(6, result.Length);
     }
 
     [Fact]
@@ -85,7 +84,7 @@ public class ShortenerTests
 
         // Assert
         Assert.NotEqual(shortUrl1, shortUrl2);
-        Assert.Matches("sho.rt/[a-zA-Z0-9]{6}", shortUrl1);
-        Assert.Matches("sho.rt/[a-zA-Z0-9]{6}", shortUrl2);
+        Assert.Matches("[a-zA-Z0-9]{6}", shortUrl1);
+        Assert.Matches("[a-zA-Z0-9]{6}", shortUrl2);
     }
 }

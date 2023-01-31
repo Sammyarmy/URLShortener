@@ -5,27 +5,40 @@ namespace URLShortener.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly IShortener _shortener;
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string? LongUrl { get; set; }
+
         public string? ShortUrl { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IShortener shortener)
+        public IndexModel(IShortener shortener)
         {
-            _logger = logger;
             _shortener = shortener;
         }
 
-        public void OnGet()
+        public IActionResult OnGet(string shortUrl)
         {
+            if (!string.IsNullOrEmpty(shortUrl))
+            {
+                var longUrl = _shortener.GetLongUrl(shortUrl);
+                if (!string.IsNullOrEmpty(longUrl) && longUrl != "Not Found")
+                {
+                    return Redirect($"https://{longUrl}");
+                }
+                return Redirect("redirect");
+            }
+
+            return Page();
         }
 
         public void OnPost()
         {
-            ShortUrl = _shortener.GenerateShortUrl(LongUrl);
-            _shortener.StoreUrl(LongUrl, ShortUrl);
+            if (!string.IsNullOrWhiteSpace(LongUrl))
+            {
+                ShortUrl = _shortener.GenerateShortUrl(LongUrl);
+                _shortener.StoreUrl(ShortUrl, LongUrl);
+            }
         }
     }
 }

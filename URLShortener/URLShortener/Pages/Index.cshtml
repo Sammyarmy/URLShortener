@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{shortUrl?}"
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -11,5 +11,5 @@
 </form>
 @if (Model.ShortUrl != null)
 {
-    <p>Short URL: @Model.ShortUrl</p>
+    <p>Short URL: sho.rt/@Model.ShortUrl</p>
 }

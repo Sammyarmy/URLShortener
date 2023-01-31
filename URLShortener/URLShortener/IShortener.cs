@@ -4,6 +4,6 @@
     {
         string GenerateShortUrl(string longUrl);
         void StoreUrl(string shortUrl, string longUrl);
-        string GetUrl(string shortUrl);
+        string GetLongUrl(string shortUrl);
     }
 }

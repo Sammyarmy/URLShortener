@@ -8,7 +8,7 @@ namespace URLShortener
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddTransient<IShortener, Shortener>();
+            builder.Services.AddSingleton<IShortener, Shortener>();
 
             var app = builder.Build();
 
@@ -24,6 +24,16 @@ namespace URLShortener
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}");
+
+                endpoints.MapRazorPages();
+            });
 
             app.UseAuthorization();
 
